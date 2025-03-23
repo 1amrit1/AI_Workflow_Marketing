@@ -1,0 +1,32 @@
+
+-BERT gets tokens from the actual data - Tokens as in? Example please
+	--Will use BertTokenizers.NET for tokenization directly in app
+-TensorFlow.NET - converts token data in Multi-Dimension Array called Tensors
+	--
+-PostgreSQL - Open-source, robust, and feature-rich and very good for scaling
+
+
+-Open Sources for Free Dummy Data
+	--Kaggle: Datasets on marketing, product reviews and customer service.
+	--UCI Machine Learning Repository: Datasets on retail, customer behavior and text datasets (workflow or marketing content).
+	--Public Datasets & APIs: Datasets: IMDB reviews and Amazon product reviews for Marketing?
+	--Synthetic Data Generation:  Faker Library in C# for dummy data
+	
+-Tools:
+--Visual Studio
+--Git Desktop and GitHub 
+--Beyond Compare 
+--Notepad++
+-Primary NuGet Packages
+--Microsoft.ML.TensorFlow
+--SciSharp.TensorFlow.Redist (for TensorFlow binaries)
+
+
+
+
+
+
+
+
+
+

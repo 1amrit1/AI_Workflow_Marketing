@@ -1,0 +1,53 @@
+# Build Folders
+bin/
+obj/
+
+# Visual Studio Files
+.vs/
+*.user
+*.suo
+*.userprefs
+*.vcxproj.user
+*.vcxproj.filters
+*.dbmdl
+*.opendb
+*.ldb
+*.DS_Store
+
+# Visual Studio Code Files
+.vscode/
+
+# Rider / Resharper Files
+.idea/
+*.sln.iml
+
+# NuGet Packages
+packages/
+*.nupkg
+**/packages/
+
+# Build Results
+*.dll
+*.exe
+*.log
+*.stackdump
+*.tmp
+*.pdb
+
+# Publish Web Outputs
+wwwroot/
+
+# Azure Function / WebJob Files
+local.settings.json
+
+# User Secrets 
+secrets.json
+
+# Other
+*.swp
+*~
+*.temp
+*.tmp
+
+# If you're storing large ML models, consider using Git LFS or excluding them:
+# models/

@@ -1,0 +1,22 @@
+Questions => 
+Parameters?
+
+
+
+
+
+
+
+-C# .NET console application for:
+	--An AI based app which require human accountability, but support a human decsion
+		---WorkFlow Decisions
+			----Creations
+			----Final Approval/Rejection Percentage
+		---Sales and Marketing
+			----
+		
+	--using open source tools BERT and TensorFlow
+		---BERT To to tokenize content 
+		---TensorFlow to create tensors, which will be used for marketing, product help and creating workflow steps.
+	
+	
