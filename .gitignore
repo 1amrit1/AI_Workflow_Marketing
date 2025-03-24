@@ -51,3 +51,9 @@ secrets.json
 
 # If you're storing large ML models, consider using Git LFS or excluding them:
 # models/
+
+#python program's saved Tensor Flow model
+bert_conversion/my_bert_savedmodel/
+
+#cannot push models to git as the size is > 100MB
+my_bert_savedmodel/

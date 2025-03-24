@@ -18,5 +18,5 @@ Parameters?
 	--using open source tools BERT and TensorFlow
 		---BERT To to tokenize content 
 		---TensorFlow to create tensors, which will be used for marketing, product help and creating workflow steps.
-	
-	
+		--- Model is to be added in AI_WF_MARKETING\models\my_bert_savedmodel directory and can be created 
+			by running the bert_conversion\convert_bert.py pogram (check pythonLibs.txt file in it to install the python libraries)

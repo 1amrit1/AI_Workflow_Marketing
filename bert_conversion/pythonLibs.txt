@@ -1,0 +1,8 @@
+On 20250323 -  It needed Python 3.11 (not any later version) for Tensorflow to be installed
+
+python -m pip install --upgrade pip setuptools wheel
+python -m pip install tensorflow
+python -m pip install transformers
+python -m pip install tf-keras
+python -m pip install torch
+

@@ -13,14 +13,17 @@
 	--Synthetic Data Generation:  Faker Library in C# for dummy data
 	
 -Tools:
---Visual Studio
---Git Desktop and GitHub 
---Beyond Compare 
---Notepad++
+	--Visual Studio
+	--Git Desktop and GitHub 
+	--Beyond Compare 
+	--Notepad++
 -Primary NuGet Packages
---Microsoft.ML.TensorFlow
---SciSharp.TensorFlow.Redist (for TensorFlow binaries)
-
+	--SciSharp.TensorFlow.Redist (for TensorFlow binaries)
+	--TensorFlow.Net
+		Tensorflow.NumPy
+	--BERT Tokenizer: https://github.com/NMZivkovic/BertTokenizers
+		--- Vocab.txt: a dictionary of subword tokens that the model recognizes.
+			(eg: "Hello, How are you?": will be broken into "Hello" + "," + "How" + "are" + "you" + "?" by the tokenizer)
 
 
 

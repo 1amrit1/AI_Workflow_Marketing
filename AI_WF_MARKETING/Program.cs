@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-// TensorFlow.NET namespaces:
-using Tensorflow;               // Core TensorFlow classes
-using static Tensorflow.Binding; // Gives access to 'tf'
+using System.Linq;
+using Tensorflow;
+using static Tensorflow.Binding;
 
 namespace AI_WF_MARKETING
 {
@@ -10,76 +9,48 @@ namespace AI_WF_MARKETING
     {
         static void Main(string[] args)
         {
+            // 1. Instantiate the tokenizer
+            var tokenizer = new BertTokenizerWrapper();
+
+            // 2. Get user input
             Console.WriteLine("Enter text to process (for workflow or marketing):");
             string inputText = Console.ReadLine();
 
-            // Step 1: Tokenize the input text (dummy BERT tokenizer).
-            var tokens = Tokenize(inputText);
-            Console.WriteLine("\nTokens:");
-            Console.WriteLine(string.Join(", ", tokens));
+            // 3. Tokenize => (tokenIds, attentionMask, tokenTypeIds)
+            var (tokenIds, attentionMask, tokenTypeIds) = tokenizer.Tokenize(inputText);
 
-            // Step 2: Convert tokens to token IDs (dummy mapping).
-            int[] tokenIds = GetTokenIds(tokens);
-            Console.WriteLine("\nToken IDs:");
-            Console.WriteLine(string.Join(", ", tokenIds));
+            // 4. Convert them to Tensors (shape [1, 256], int32).
+            long[] shape = { 1, 256 };
+            int[] idsInt = Array.ConvertAll(tokenIds, x => (int)x);
+            int[] maskInt = Array.ConvertAll(attentionMask, x => (int)x);
+            int[] typeInt = Array.ConvertAll(tokenTypeIds, x => (int)x);
 
-            // Step 3: Create a TensorFlow.NET tensor from token IDs.
-            // We’ll assume a batch size of 1 and a sequence length equal to tokenIds.Length.
-            long[] shape = { 1, tokenIds.Length };
+            Tensor inputIdsTensor = tf.constant(idsInt, shape: shape, dtype: TF_DataType.TF_INT32);
+            Tensor attentionMaskTensor = tf.constant(maskInt, shape: shape, dtype: TF_DataType.TF_INT32);
+            Tensor tokenTypeIdsTensor = tf.constant(typeInt, shape: shape, dtype: TF_DataType.TF_INT32);
 
-            // Using tf.constant(...) is often simpler than using the Tensor constructor directly.
-            // This will create a TF_INT32 tensor from our int[] array with the specified shape.
-            Tensor tensor = tf.constant(tokenIds, shape: shape, dtype: TF_DataType.TF_INT32);
+            // 5. Load the model
+            var modelPath = "models/my_bert_savedmodel";
+            var model = new BertModel(modelPath);
 
-            // Step 4: Simulate or run real inference.
-            // Here, we’re just simulating the model’s output.
-            string modelOutput = RunInference(tensor);
-            Console.WriteLine("\nModel Output (simulated):");
-            Console.WriteLine(modelOutput);
+            // 6. Run inference
+            Tensor output = model.RunInference(inputIdsTensor, attentionMaskTensor, tokenTypeIdsTensor);
 
-            // Step 5: Human in the loop decision process.
-            Console.WriteLine("\nAI Suggestion: " + modelOutput);
-            Console.Write("Do you approve this suggestion? (y/n): ");
+            // 7. Print or interpret
+            Console.WriteLine("\nModel Output:");
+            Console.WriteLine(output.ToString());
+
+            // 8. Human in the loop
+            Console.WriteLine("\nAI Suggestion: [some logic based on output]");
+            Console.Write("Do you approve? (y/n): ");
             string approval = Console.ReadLine();
-            if (approval.Trim().ToLower() == "y")
-            {
+            if (approval?.ToLower() == "y")
                 Console.WriteLine("Decision Approved.");
-            }
             else
-            {
-                Console.WriteLine("Decision Rejected. Please provide your feedback.");
-            }
+                Console.WriteLine("Decision Rejected.");
 
             Console.WriteLine("\nPress any key to exit.");
             Console.ReadKey();
-        }
-
-        // Dummy tokenization method to simulate BERT tokenization.
-        static List<string> Tokenize(string text)
-        {
-            var tokens = new List<string> { "[CLS]" };
-            tokens.AddRange(text.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
-            tokens.Add("[SEP]");
-            return tokens;
-        }
-
-        // Dummy method to map tokens to token IDs.
-        static int[] GetTokenIds(List<string> tokens)
-        {
-            int[] ids = new int[tokens.Count];
-            for (int i = 0; i < tokens.Count; i++)
-            {
-                // Simple simulation: convert each token's hash to a positive number.
-                ids[i] = Math.Abs(tokens[i].GetHashCode()) % 10000;
-            }
-            return ids;
-        }
-
-        // Simulated inference method.
-        static string RunInference(Tensor inputTensor)
-        {
-            // In a real application, you'd load a SavedModel and run session inference here.
-            return "Suggested Workflow Step: Create Support Ticket";
         }
     }
 }
